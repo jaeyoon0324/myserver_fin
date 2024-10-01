@@ -1,156 +1,96 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>블로그 페이지</title>
-
-    <!-- CSS 스타일 -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #fafafa;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav {
-            background-color: white;
-            border-bottom: 1px solid #dbdbdb;
-            padding: 10px;
-            text-align: center;
-        }
-
-        nav a {
-            color: #262626;
-            text-decoration: none;
-            margin: 0 20px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            color: #8e8e8e;
-        }
-
-        /* 그리드 레이아웃 */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 카드 크기를 유연하게 */
-            gap: 20px;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        .card {
-            position: relative;
-            background-color: white;
-            border: 1px solid #dbdbdb;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            transition: transform 0.3s ease, z-index 0.3s ease;
-            z-index: 1;
-        }
-
-        .card img, .card video {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-
-        .card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .card a:hover {
-            background-color: #2980b9;
-        }
-
-        /* 확대 효과 */
-        .card:hover {
-            transform: scale(1.2);
-            z-index: 10;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background-color: #f8f9fa;
         }
 
         footer {
+            background-color: #ffffff;
             padding: 20px;
             text-align: center;
             font-size: 0.9rem;
             color: #999;
+            border-top: 1px solid #eaeaea;
         }
 
-        /* 반응형 디자인 */
-        @media (max-width: 768px) {
-            .grid-container {
-                grid-template-columns: 1fr; /* 작은 화면에서는 한 열로 배치 */
-            }
+        .card {
+            transition: transform 0.3s ease;
+        }
 
-            .card:hover {
-                transform: scale(1.05); /* 작은 화면에서는 살짝만 확대 */
-            }
+        .card:hover {
+            transform: scale(1.05); /* 카드 확대 효과 */
         }
     </style>
 </head>
+
 <body>
-    <nav>
-        <a href="/">첫화면으로 돌아가기</a>
-        <a href="/test1/">블로그 메인화면</a>
-        <a href="/test1/new/">게시물 추가하기</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">JaeYoon's Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/test1/">블로그 메인화면</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/test1/new/">게시물 추가하기</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about_me/">자기소개</a> <!-- 자기소개 페이지 링크 추가 -->
+                </li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="grid-container">
-        {% for post in posts %}
-        <div class="card">
-            {% if post.image %}
-                {% if post.is_video %}
-                    <!-- 동영상 미리 보기 -->
-                    <video muted loop class="video-preview">
-                        <source src="{{ post.image.url }}" type="video/mp4">
-                        동영상을 지원하지 않는 브라우저입니다.
-                    </video>
-                {% else %}
-                    <!-- 이미지 미리 보기 -->
-                    <img src="{{ post.image.url }}" alt="{{post.image.name}}">
-                {% endif %}
-            {% endif %}
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.content|truncatewords:20 }}</p> <!-- 게시물 내용을 20단어로 제한 -->
-            <a href="{% url 'single_post_page' post.pk %}">더 보기</a>
+    <div class="container mt-4">
+        <div class="row">
+            {% for post in posts %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if post.image %}
+                        {% if post.is_video %}
+                            <video muted loop autoplay class="card-img-top">
+                                <source src="{{ post.image.url }}" type="video/mp4">
+                                <source src="{{ post.image.url }}" type="video/webm">
+                                동영상을 지원하지 않는 브라우저입니다.
+                            </video>
+                        {% else %}
+                            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.image.name }}">
+                        {% endif %}
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content|truncatewords:20 }}</p> <!-- 게시물 내용을 20단어로 제한 -->
+                        <a href="{% url 'single_post_page' post.pk %}" class="btn btn-primary">더 보기</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 
     <footer>
         <p>© 2024 JaeYoon's Blog</p>
     </footer>
 
-    <!-- JavaScript 코드 -->
+    <!-- Bootstrap JS, jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <script>
         // 모든 동영상 요소에 이벤트 리스너 추가
-        document.querySelectorAll('.video-preview').forEach(video => {
+        document.querySelectorAll('video').forEach(video => {
             // 마우스가 비디오 위에 올라갔을 때 자동 재생
             video.addEventListener('mouseenter', function() {
                 video.play();
@@ -164,4 +104,5 @@
         });
     </script>
 </body>
+
 </html>
