@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재윤이의 페이지</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #4CAF50;
+        }
+
+        h4 {
+            text-align: left;
+            margin-top: 30px;
+            color: #555;
+        }
+
+        pre {
+            font-size: 1rem;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #4CAF50;
+            white-space: pre-wrap; /* 줄바꿈 처리 */
+            text-align: left;
+        }
+
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/test1/">Blog</a>
+        
+    </nav>
+
+    <div class="container">
+        {% if data %}
+            <img src="{{ data.image.url }}" alt="Profile Image">
+            <h1>{{ data.name }}</h1>
+            <h4>이력</h4>
+            <pre>{{ data.portfolio }}</pre>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>© 2024 JaeYoon's Page</p>
+    </footer>
+
+</body>
+</html>
