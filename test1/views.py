@@ -3,7 +3,7 @@ from .models import Post
 import os
 
 def index(request):
-    posts = Post.objects.all().order_by('created_at')
+    posts = Post.objects.all()
     
     # 각 포스트의 이미지가 동영상인지 아닌지 확인
     for post in posts:
