@@ -1,100 +1,293 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>재윤이의 페이지</title>
+    <title>재윤이의 자기소개</title>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- AOS CSS (Animate on Scroll) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    
+    <!-- FontAwesome (아이콘 로고 사용) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         body {
-            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            font-family: 'Arial', sans-serif;
         }
 
+        /* 네비게이션바 */
         nav {
-            background-color: #4CAF50;
-            padding: 15px;
-            text-align: center;
+            background-color: #007bff; /* 하늘색 */
+            padding: 10px;
         }
 
         nav a {
             color: white;
-            text-decoration: none;
             font-weight: bold;
             margin: 0 15px;
+            text-decoration: none;
         }
 
         nav a:hover {
             color: #ffcc00;
         }
 
-        .container {
-            width: 80%;
-            margin: 30px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /* Hero Section */
+        .hero {
+            background-image: url("{% static 'images/photo.jpeg' %}"); /* 로컬 이미지 경로 */
+            background-size: cover;
+            background-position: center;
+            color: white;
             text-align: center;
+            padding: 100px 0;
+            position: relative;
+            animation: fadeIn 2s ease-in-out;
         }
 
-        img {
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #4CAF50;
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
         }
 
-        h4 {
-            text-align: left;
-            margin-top: 30px;
-            color: #555;
+        .hero .btn {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
         }
 
-        pre {
-            font-size: 1rem;
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-left: 5px solid #4CAF50;
-            white-space: pre-wrap; /* 줄바꿈 처리 */
-            text-align: left;
+        .hero .btn:hover {
+            transform: scale(1.1);
         }
 
-        footer {
-            background-color: #4CAF50;
-            color: white;
+        /* 프로필 섹션 */
+        .profile {
+            padding: 80px 0;
+            background-color: white;
             text-align: center;
-            padding: 15px;
-            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #007bff;
+            animation: fadeInLeft 1.5s ease;
+        }
+
+        .profile h2 {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 20px;
+            animation: fadeInRight 1.5s ease;
+        }
+
+        .profile p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 20px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        /* 기술 섹션 */
+        .skills {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .skills h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .skills .skill-bar {
+            margin: 20px auto;
+            width: 80%;
+        }
+
+        .skills .skill {
+            background-color: #ddd;
+            height: 30px;
+            position: relative;
+            border-radius: 15px;
+        }
+
+        .skills .skill span {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: white;
+        }
+
+        .skills .html-bar { width: 90%; background-color: #f16529; animation: expand 2s ease-in-out; }
+        .skills .css-bar { width: 80%; background-color: #2965f1; animation: expand 2.5s ease-in-out; }
+        .skills .js-bar { width: 70%; background-color: #f7df1e; animation: expand 3s ease-in-out; }
+
+        /* 기술 로고 추가 */
+        .skill-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        @keyframes expand {
+            from { width: 0; }
+            to { width: inherit; }
+        }
+
+        /* 프로젝트 섹션 */
+        .projects {
+            padding: 60px 0;
+            background-color: #ffffff;
+        }
+
+        .projects h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #007bff;
+        }
+
+        .projects .project {
+            margin-bottom: 30px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="/test1/">Blog</a>
-        
+    <!-- 네비게이션바 -->
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="/">Jaeyoon's Page</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/test1/">블로그</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about_me/">자기소개</a></li>
+            </ul>
+        </div>
     </nav>
 
-    <div class="container">
-        {% if data %}
-            <img src="{{ data.image.url }}" alt="Profile Image">
-            <h1>{{ data.name }}</h1>
-            <h4>이력</h4>
-            <pre>{{ data.portfolio }}</pre>
-        {% endif %}
-    </div>
+    <!-- 히어로 섹션 -->
+    <section class="hero" data-aos="fade-in" color='#ffffff'>
+        <h1>JAEYOON LEE</h1>
+        <h3>삼수생 개발자</h3>
+        <a href="#profile" class="btn btn-primary">자세히 알아보기</a>
+    </section>
 
-    <footer>
+    <!-- 프로필 섹션 -->
+    <section class="profile" id="profile" data-aos="fade-up">
+        {% if data %}
+        <img src="{% static 'images/photo2.jpeg' %}" alt="Profile Image">
+        {%endif%}
+        <h2>이재윤</h2><p>2004.03.24</p>
+        <h4>경북대학교 컴퓨터학부 인공지능컴퓨팅 전공 휴학</h4>
+        <hr/>
+        <p>안녕하세요, 저는 다양한 프로젝트를 진행하며 인공지능과 데이터 사이언스를 공부하는 학생입니다. </p>
+        <p>현재는 2025 대학수학능력시험 을 준비하고 있습니다.  </p>
+    </section>
+
+    <!-- 기술 섹션 -->
+    <section class="skills" data-aos="fade-up">
+        <div class="container">
+            <h2>기술</h2>
+            <div class="skill-bar">
+                <div class="skill html-bar">
+                    <span><i class="fab fa-python skill-icon"></i>Python</span>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill css-bar">
+                    <span><i class="fab fa-java skill-icon"></i>Java</span>
+                </div>
+            </div>
+            <div class="skill-bar">
+                <div class="skill js-bar">
+                    <span><i class="fab fa-cuttlefish skill-icon"></i>C</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 프로젝트 섹션 -->
+    <section class="projects" data-aos="fade-up">
+        <div class="container">
+            <h2>주요 프로젝트</h2>
+            <div class="row">
+                <div class="col-md-6 project">
+                    <h3>glow해커톤</h3>
+                    <p>이 프로젝트에서는 지역사회 정보 소외 계층의 접근성 향상을 위한 인공지능모델및 데이터 분석 서비스를 구현했습니다 </p>
+                </div>
+                <div class="col-md-6 project">
+                    <h3>자가진단자동화</h3>
+                    <p>자가진단을 자동화 하는 프로그램을 개발하여 40명 이상의 클라이언트를 관리하고, 코로나 진행상황에 맞춰 유연하게 기록할 수 있는 프로그램을 개발하였습니다 </p>
+                </div>
+                <div class="col-md-6 project">
+                    <h3>개인용 클라우드 서비스 구현</h3>
+                    <p>개인용 클라우드 서비스를 구현하여, 데이터 입출력과 스트리밍을 구현하였습니다. </p>
+                </div>
+                <div class="col-md-6 project">
+                    <h3>개인용 학습관리 모델 구현</h3>
+                    <p>학생 개인에게 맞춤형 공부계획을 제공하는 서비스를 개발하였습니다. 데이터 관리기술을 사용하였습니다. </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="text-center py-4">
         <p>© 2024 JaeYoon's Page</p>
     </footer>
+
+    <!-- Bootstrap JS, jQuery, AOS JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init();  // AOS 애니메이션 초기화
+    </script>
 
 </body>
 </html>
